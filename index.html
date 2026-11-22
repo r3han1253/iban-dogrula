@@ -20,10 +20,13 @@
   <meta property="og:title" content="IBAN Doğrula – IBAN Geçerli mi, Hangi Bankanın?">
   <meta property="og:description" content="Türkiye IBAN numarasını anında doğrulayın ve bankasını öğrenin. IBAN hiçbir yere gönderilmez.">
   <meta property="og:url" content="https://r3han1253.github.io/TRIBAN-KONTROL/">
-  <meta property="og:image" content="https://r3han1253.github.io/TRIBAN-KONTROL/logo.png">
-  <meta property="og:image:width" content="512">
-  <meta property="og:image:height" content="512">
-  <meta name="twitter:card" content="summary">
+  <meta property="og:image" content="https://r3han1253.github.io/TRIBAN-KONTROL/og-gorsel.png">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="IBAN Doğrula: IBAN geçerli mi, hangi bankanın? Tekli ve toplu doğrulama, Excel yükleme.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://r3han1253.github.io/TRIBAN-KONTROL/og-gorsel.png">
 
   <!-- Google için sık sorulan sorular verisi -->
   <script type="application/ld+json">
@@ -47,13 +50,14 @@
   }
   </script>
   <script src="tema.js?v=20261120d"></script>
-  <link rel="stylesheet" href="style.css?v=20261120e">
+  <link rel="stylesheet" href="style.css?v=20261122c">
 </head>
 <body>
   <header>
     <a href="./" class="logo" id="logo-baglanti"><span class="site-adi">ibandogrula.com</span><img src="logo.png" alt="IBAN Doğrula" width="56" height="56"></a>
     <nav class="sol">
       <a href="#nasil">Nasıl çalışır?</a>
+      <a href="banka-kodlari.html">Banka kodları</a>
       <label class="tema-anahtari" title="Aydınlık / karanlık mod">
         <input type="checkbox" id="tema" aria-label="Karanlık mod">
         <span id="tema-simge" class="tema-simge" aria-hidden="true">🌞</span>
@@ -111,6 +115,12 @@
       </div>
 
       <div id="panel-toplu" role="tabpanel" aria-labelledby="sekme-toplu" hidden>
+        <div class="dosya-alani">
+          <input type="file" id="dosya-sec" accept=".xlsx,.csv,.txt,.tsv" hidden>
+          <button type="button" class="btn" id="dosya-btn">Excel / CSV dosyası seç</button>
+          <span class="dosya-ipucu">ya da dosyayı buraya sürükleyip bırakın (.xlsx, .csv, .txt)</span>
+        </div>
+        <p id="dosya-durum" class="hint dosya-durum" role="status" hidden></p>
         <label for="toplu-girdi">IBAN listesi</label>
         <textarea id="toplu-girdi" rows="8" spellcheck="false" autocomplete="off"
                   placeholder="Her satıra bir IBAN yazın ya da Excel'den bir sütunu yapıştırın&#10;TR33 0006 1005 1978 6457 8413 26&#10;TR90 0015 7000 0000 0200 0020 22"></textarea>
@@ -119,7 +129,7 @@
           <button type="button" class="btn-ikincil" id="toplu-temizle">Temizle</button>
           <label class="secenek"><input type="checkbox" id="hatalilar-ustte"> Hatalıları üstte göster</label>
         </div>
-        <p class="hint">Her satıra bir IBAN gelecek şekilde yapıştırın; bir satıra en fazla 26 karakter (harf/rakam) girilebilir, fazlası otomatik silinir. Kontrol tamamen tarayıcınızda yapılır, liste hiçbir yere gönderilmez.</p>
+        <p class="hint">Her satıra bir IBAN gelecek şekilde yapıştırın; bir satıra en fazla 26 karakter (harf/rakam) girilebilir, fazlası otomatik silinir. Excel dosyası seçerseniz dosyadaki tüm sayfalar taranır ve IBAN'lar otomatik bulunur. Dosya tarayıcınızda okunur; dosya da liste de hiçbir yere gönderilmez.</p>
 
         <div id="toplu-sonuc" hidden aria-live="polite">
           <p id="toplu-ozet" class="toplu-ozet"></p>
@@ -195,7 +205,9 @@
   </main>
 
   <footer>
-    <nav class="alt-baglantilar" aria-label="Yasal bilgiler">
+    <nav class="alt-baglantilar" aria-label="Site bağlantıları">
+      <a href="banka-kodlari.html">Banka kodları listesi</a>
+      <span aria-hidden="true">·</span>
       <a href="kvkk.html">KVKK Aydınlatma Metni</a>
       <span aria-hidden="true">·</span>
       <a href="kvkk.html#cerezler">Gizlilik ve Çerezler</a>
@@ -203,7 +215,7 @@
     <p>&copy; <span id="yil"></span> IBAN Doğrula · IBAN'ınız hiçbir yere gönderilmez.</p>
   </footer>
 
-  <script src="app.js?v=20261120d"></script>
+  <script src="app.js?v=20261122a"></script>
   <!-- Cloudflare Web Analytics: çerezsiz ziyaretçi sayacı (yalnızca sayfa görüntüleme bilgisi gönderir, IBAN göndermez) -->
   <script type="module" src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "cf7c5ec5392f4ba684692a2b5b3f1f00"}'></script>
 </body>

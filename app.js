@@ -502,7 +502,7 @@ topluGirdi.addEventListener("input", () => {
   }
 });
 
-document.getElementById("toplu-kontrol").addEventListener("click", () => {
+function topluCalistir() {
   topluSonuclar = topluKontrolEt(document.getElementById("toplu-girdi").value);
   topluOzetYaz();
   topluTabloyuCiz();
@@ -510,12 +510,15 @@ document.getElementById("toplu-kontrol").addEventListener("click", () => {
   document.querySelector("#toplu-sonuc .tablo-kap").hidden = !varMi;
   document.getElementById("csv-indir").hidden = !varMi;
   document.getElementById("toplu-sonuc").hidden = false;
-});
+}
+
+document.getElementById("toplu-kontrol").addEventListener("click", topluCalistir);
 
 document.getElementById("toplu-temizle").addEventListener("click", () => {
   document.getElementById("toplu-girdi").value = "";
   topluSonuclar = [];
   document.getElementById("toplu-sonuc").hidden = true;
+  dosyaDurumuYaz("");
   document.getElementById("toplu-girdi").focus();
 });
 
@@ -547,6 +550,199 @@ document.getElementById("csv-indir").addEventListener("click", () => {
   a.click();
   a.remove();
   setTimeout(() => URL.revokeObjectURL(url), 1000);
+});
+
+// ---------- Dosyadan okuma (.xlsx, .csv, .txt) ----------
+// Dosya tarayıcıda açılır; hiçbir yere gönderilmez. .xlsx bir zip arşividir:
+// kütüphane kullanmadan, tarayıcının kendi DecompressionStream özelliğiyle okunur.
+const DOSYA_SINIRI = 20 * 1024 * 1024;       // seçilebilecek en büyük dosya
+const ACILMIS_SINIRI = 100 * 1024 * 1024;    // zip bombasına karşı açılmış boyut sınırı
+
+class DosyaHatasi extends Error {}
+
+async function deflateAc(bayt) {
+  const akis = new Blob([bayt]).stream().pipeThrough(new DecompressionStream("deflate-raw"));
+  const okuyucu = akis.getReader();
+  const parcalar = [];
+  let toplam = 0;
+  for (;;) {
+    const { done, value } = await okuyucu.read();
+    if (done) break;
+    toplam += value.length;
+    if (toplam > ACILMIS_SINIRI) {
+      okuyucu.cancel();
+      throw new DosyaHatasi("Dosya açıldığında çok büyük çıkıyor, okunamadı.");
+    }
+    parcalar.push(value);
+  }
+  return new Blob(parcalar).text();
+}
+
+// Zip'in merkez dizininden dosya listesini çıkarır: ad → {yontem, boyut, veriBasi}
+function zipGirdileri(bayt) {
+  const dv = new DataView(bayt.buffer, bayt.byteOffset, bayt.byteLength);
+  let son = -1;
+  for (let i = bayt.length - 22; i >= Math.max(0, bayt.length - 22 - 65535); i--) {
+    if (dv.getUint32(i, true) === 0x06054b50) { son = i; break; }
+  }
+  if (son < 0) throw new DosyaHatasi("Bu dosya geçerli bir Excel (.xlsx) dosyası gibi görünmüyor.");
+  const adet = dv.getUint16(son + 10, true);
+  let p = dv.getUint32(son + 16, true);
+  const ad = new TextDecoder();
+  const girdiler = new Map();
+  for (let i = 0; i < adet; i++) {
+    if (p + 46 > bayt.length || dv.getUint32(p, true) !== 0x02014b50) break;
+    const yontem = dv.getUint16(p + 10, true);
+    const boyut = dv.getUint32(p + 20, true);
+    const adUzun = dv.getUint16(p + 28, true);
+    const ekUzun = dv.getUint16(p + 30, true);
+    const notUzun = dv.getUint16(p + 32, true);
+    const yerel = dv.getUint32(p + 42, true);
+    const dosyaAdi = ad.decode(bayt.subarray(p + 46, p + 46 + adUzun));
+    if (yerel + 30 <= bayt.length && dv.getUint32(yerel, true) === 0x04034b50) {
+      const veriBasi = yerel + 30 + dv.getUint16(yerel + 26, true) + dv.getUint16(yerel + 28, true);
+      girdiler.set(dosyaAdi, { yontem, boyut, veriBasi });
+    }
+    p += 46 + adUzun + ekUzun + notUzun;
+  }
+  return girdiler;
+}
+
+async function zipMetni(bayt, g) {
+  const veri = bayt.subarray(g.veriBasi, g.veriBasi + g.boyut);
+  if (g.yontem === 0) return new Blob([veri]).text();
+  if (g.yontem === 8) return deflateAc(veri);
+  throw new DosyaHatasi("Bu Excel dosyasının sıkıştırma biçimi desteklenmiyor.");
+}
+
+function xmlCoz(s) {
+  return s.replace(/&(#[xX][0-9a-fA-F]+|#\d+|amp|lt|gt|quot|apos);/g, (m, k) => {
+    if (k === "amp") return "&";
+    if (k === "lt") return "<";
+    if (k === "gt") return ">";
+    if (k === "quot") return '"';
+    if (k === "apos") return "'";
+    try {
+      return String.fromCodePoint(k[1] === "x" || k[1] === "X" ? parseInt(k.slice(2), 16) : parseInt(k.slice(1), 10));
+    } catch (e) { return ""; }
+  });
+}
+
+// <t>...</t> parçalarını birleştirir (zengin metinde birden fazla olabilir)
+function xmlMetinleri(parca) {
+  const t = parca.replace(/<rPh\b[\s\S]*?<\/rPh>/g, "");
+  let out = "";
+  for (const m of t.matchAll(/<t(?:\s[^>]*)?>([\s\S]*?)<\/t>/g)) out += xmlCoz(m[1]);
+  return out;
+}
+
+function paylasilanMetinler(xml) {
+  const liste = [];
+  for (const m of xml.matchAll(/<si\b[^>]*?(?:\/>|>([\s\S]*?)<\/si>)/g)) liste.push(m[1] ? xmlMetinleri(m[1]) : "");
+  return liste;
+}
+
+// Sayfadaki her satırı, hücreleri ";" ile birleştirilmiş bir metin satırına çevirir
+function sayfaSatirlari(xml, paylasilan) {
+  const satirlar = [];
+  for (const sm of xml.matchAll(/<row\b[^>]*?(?:\/>|>([\s\S]*?)<\/row>)/g)) {
+    if (!sm[1]) continue;
+    const hucreler = [];
+    for (const hm of sm[1].matchAll(/<c\b([^>]*?)(?:\/>|>([\s\S]*?)<\/c>)/g)) {
+      if (!hm[2]) continue;
+      const tur = (hm[1].match(/\bt="([^"]*)"/) || [])[1];
+      const v = (hm[2].match(/<v>([\s\S]*?)<\/v>/) || [])[1];
+      let metin = "";
+      if (tur === "s") metin = paylasilan[Number(v)] || "";
+      else if (tur === "inlineStr") metin = xmlMetinleri(hm[2]);
+      else if (v !== undefined) metin = xmlCoz(v);
+      if (metin) hucreler.push(metin);
+    }
+    if (hucreler.length) satirlar.push(hucreler.join(";"));
+  }
+  return satirlar;
+}
+
+async function xlsxMetni(bayt) {
+  const girdiler = zipGirdileri(bayt);
+  if (!girdiler.has("xl/workbook.xml")) {
+    throw new DosyaHatasi("Bu dosya geçerli bir Excel (.xlsx) dosyası gibi görünmüyor.");
+  }
+  const paylasilan = girdiler.has("xl/sharedStrings.xml")
+    ? paylasilanMetinler(await zipMetni(bayt, girdiler.get("xl/sharedStrings.xml")))
+    : [];
+  const sayfalar = [...girdiler.keys()]
+    .filter(a => /^xl\/worksheets\/[^/]+\.xml$/.test(a))
+    .sort((a, b) => a.localeCompare(b, "en", { numeric: true }));
+  const satirlar = [];
+  for (const sayfa of sayfalar) {
+    satirlar.push(...sayfaSatirlari(await zipMetni(bayt, girdiler.get(sayfa)), paylasilan));
+  }
+  return satirlar.join("\n");
+}
+
+async function dosyadanMetin(dosya) {
+  if (dosya.size > DOSYA_SINIRI) throw new DosyaHatasi("Dosya çok büyük (en fazla 20 MB).");
+  const bayt = new Uint8Array(await dosya.arrayBuffer());
+  if (bayt[0] === 0x50 && bayt[1] === 0x4b) return xlsxMetni(bayt);
+  if (bayt[0] === 0xd0 && bayt[1] === 0xcf && bayt[2] === 0x11 && bayt[3] === 0xe0) {
+    throw new DosyaHatasi("Eski .xls biçimi okunamıyor. Excel'de \"Farklı Kaydet\" ile .xlsx veya .csv olarak kaydedip yeniden deneyin.");
+  }
+  return new TextDecoder().decode(bayt);
+}
+
+// ---------- Dosya seçme arayüzü ----------
+function dosyaDurumuYaz(metin, hata) {
+  const p = document.getElementById("dosya-durum");
+  p.textContent = metin;
+  p.hidden = !metin;
+  p.classList.toggle("hata", Boolean(hata));
+}
+
+async function dosyaIsle(dosya) {
+  if (!dosya) return;
+  dosyaDurumuYaz(dosya.name + " okunuyor…");
+  try {
+    const metin = await dosyadanMetin(dosya);
+    const ibanlar = [];
+    for (const satir of metin.split(/\r?\n/)) {
+      ibanlar.push(...satirdanIbanlar(satir));
+      if (ibanlar.length >= TOPLU_SINIR) break;
+    }
+    document.getElementById("toplu-girdi").value = ibanlar.slice(0, TOPLU_SINIR).map(grupla).join("\n");
+    topluCalistir();
+    dosyaDurumuYaz(ibanlar.length
+      ? dosya.name + ": " + Math.min(ibanlar.length, TOPLU_SINIR) + " IBAN bulundu."
+      : dosya.name + ": dosyada IBAN bulunamadı. IBAN'lar \"TR\" ile başlayan metin olarak yazılmış olmalı.");
+  } catch (e) {
+    dosyaDurumuYaz(e instanceof DosyaHatasi ? e.message : "Dosya okunamadı. .xlsx, .csv veya .txt dosyası seçin.", true);
+  }
+}
+
+const dosyaKutusu = document.getElementById("dosya-sec");
+document.getElementById("dosya-btn").addEventListener("click", () => dosyaKutusu.click());
+dosyaKutusu.addEventListener("change", () => {
+  const dosya = dosyaKutusu.files[0];
+  dosyaKutusu.value = ""; // aynı dosya tekrar seçilebilsin
+  dosyaIsle(dosya);
+});
+
+// Dosyayı panelin üzerine sürükleyip bırakma
+const topluPanel = document.getElementById("panel-toplu");
+const dosyaSurukleniyor = e => e.dataTransfer && [...e.dataTransfer.types].includes("Files");
+topluPanel.addEventListener("dragover", e => {
+  if (!dosyaSurukleniyor(e)) return;
+  e.preventDefault();
+  topluPanel.classList.add("surukle");
+});
+topluPanel.addEventListener("dragleave", e => {
+  if (!topluPanel.contains(e.relatedTarget)) topluPanel.classList.remove("surukle");
+});
+topluPanel.addEventListener("drop", e => {
+  if (!dosyaSurukleniyor(e)) return;
+  e.preventDefault();
+  topluPanel.classList.remove("surukle");
+  dosyaIsle(e.dataTransfer.files[0]);
 });
 
 document.getElementById("yil").textContent = new Date().getFullYear();

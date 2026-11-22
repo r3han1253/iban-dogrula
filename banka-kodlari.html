@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Güvenlik: yalnızca bu sitenin dosyaları ve Cloudflare sayacı çalışabilir -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://static.cloudflareinsights.com; style-src 'self'; img-src 'self' data:; connect-src 'self' https://cloudflareinsights.com; object-src 'none'; base-uri 'self'; form-action 'self'">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <title>Türkiye Banka Kodları Listesi (IBAN Banka Kodu) – IBAN Doğrula</title>
+  <meta name="description" content="Türkiye'deki 70 bankanın IBAN banka kodları: Ziraat, Halkbank, İş Bankası, Garanti BBVA, Akbank, Yapı Kredi ve diğerleri. IBAN'ın 5.–9. hanelerindeki kod hangi bankaya ait, hemen bulun.">
+  <link rel="canonical" href="https://r3han1253.github.io/TRIBAN-KONTROL/banka-kodlari.html">
+  <link rel="icon" type="image/png" href="logo.png">
+  <link rel="apple-touch-icon" href="logo.png">
+  <meta name="theme-color" content="#2563eb">
+
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="tr_TR">
+  <meta property="og:site_name" content="IBAN Doğrula">
+  <meta property="og:title" content="Türkiye Banka Kodları Listesi (IBAN Banka Kodu)">
+  <meta property="og:description" content="IBAN'ın 5.–9. hanelerindeki banka kodu hangi bankaya ait? Tüm Türkiye banka kodları tek tabloda.">
+  <meta property="og:url" content="https://r3han1253.github.io/TRIBAN-KONTROL/banka-kodlari.html">
+  <meta property="og:image" content="https://r3han1253.github.io/TRIBAN-KONTROL/og-gorsel.png">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="IBAN Doğrula: Türkiye banka kodları listesi">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://r3han1253.github.io/TRIBAN-KONTROL/og-gorsel.png">
+
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "IBAN Doğrula",
+          "item": "https://r3han1253.github.io/TRIBAN-KONTROL/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Türkiye banka kodları",
+          "item": "https://r3han1253.github.io/TRIBAN-KONTROL/banka-kodlari.html"
+        }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "IBAN'dan banka kodu nasıl bulunur?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Türkiye IBAN'ı 26 karakterdir. İlk 2 karakter ülke kodu (TR), sonraki 2 karakter kontrol numarasıdır. Banka kodu IBAN'ın 5. ile 9. hanelerindeki 5 haneli sayıdır. Örneğin TR71 0006 7012 3456 7890 1234 56 numarasında banka kodu 00067'dir."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Banka kodu ile EFT kodu aynı mıdır?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Hayır. IBAN içindeki 5 haneli banka kodu, TCMB'nin ödeme sistemleri katılımcı listesindeki koddur. EFT, SWIFT ve şube kodları farklı numaralardır."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Bu liste ne kadar günceldir?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Liste TCMB'nin ödeme sistemleri katılımcıları 2026 listesine dayanır (18.09.2026 güncellemesi)."
+          }
+        }
+      ]
+    }
+  ]
+}
+  </script>
+  <script src="tema.js?v=20261120d"></script>
+  <link rel="stylesheet" href="style.css?v=20261122c">
+</head>
+<body>
+  <header>
+    <a href="./" class="logo"><span class="site-adi">ibandogrula.com</span><img src="logo.png" alt="IBAN Doğrula ana sayfa" width="56" height="56"></a>
+  </header>
+
+  <main>
+    <article class="yasal">
+      <a href="./" class="geri">← IBAN Doğrula'ya dön</a>
+      <h1>Türkiye Banka Kodları Listesi</h1>
+      <p class="tarih">Kaynak: TCMB Ödeme Sistemleri Katılımcıları (2026), 18.09.2026 güncellemesi · 70 kod</p>
+
+      <p>Türkiye IBAN'ının <strong>5. ile 9. haneleri</strong> banka kodudur. Örneğin <code>TR71 <mark>0006 7</mark>012 3456 7890 1234 56</code> numarasında banka kodu <strong>00067</strong>'dir ve Yapı Kredi'ye aittir. Aşağıdaki tablodan kodu aratabilir ya da bir IBAN'ın bankasını <a href="./">ana sayfadan</a> tek adımda öğrenebilirsiniz.</p>
+
+      <div class="ara-kutu">
+        <label for="banka-ara">Banka adı ya da kodu ara</label>
+        <input id="banka-ara" type="search" autocomplete="off" spellcheck="false" placeholder="Örn. Ziraat ya da 00010">
+      </div>
+      <p id="ara-sonuc" class="hint" role="status" aria-live="polite" hidden></p>
+
+      <div class="tablo-kap tablo-uzun">
+        <table class="kod-tablo">
+          <thead><tr><th><span class="gizli">Logo</span></th><th>Banka kodu</th><th>Banka</th></tr></thead>
+          <tbody id="banka-govde">
+          <tr data-ara="00001 t.c. merkez bankası"><td class="logo-hucre"><img src="logolar/00001.png" alt="T.C. Merkez Bankası logosu" width="44" height="44" loading="lazy"></td><td class="mono">00001</td><td>T.C. Merkez Bankası</td></tr>
+          <tr data-ara="00004 iller bankası"><td class="logo-hucre"><span class="rozet-kucuk" aria-hidden="true">İ</span></td><td class="mono">00004</td><td>İller Bankası</td></tr>
+          <tr data-ara="00010 ziraat bankası"><td class="logo-hucre"><img src="logolar/00010.png" alt="Ziraat Bankası logosu" width="44" height="44" loading="lazy"></td><td class="mono">00010</td><td>Ziraat Bankası</td></tr>
+          <tr data-ara="00012 halkbank"><td class="logo-hucre"><img src="logolar/00012.png" alt="Halkbank logosu" width="44" height="44" loading="lazy"></td><td class="mono">00012</td><td>Halkbank</td></tr>
+          <tr data-ara="00014 türkiye sınai kalkınma bankası (tskb)"><td class="logo-hucre"><span class="rozet-kucuk" aria-hidden="true">SK</span></td><td class="mono">00014</td><td>Türkiye Sınai Kalkınma Bankası (TSKB)</td></tr>
+          <tr data-ara="00015 vakıfbank"><td class="logo-hucre"><img src="logolar/00015.png" alt="VakıfBank logosu" width="44" height="44" loading="lazy"></td><td class="mono">00015</td><td>VakıfBank</td></tr>
+          <tr data-ara="00016 türk eximbank"><td class="logo-hucre"><span class="rozet-kucuk" aria-hidden="true">TE</span></td><td class="mono">00016</td><td>Türk Eximbank</td></tr>
+          <tr data-ara="00017 türkiye kalkınma ve yatırım bankası"><td class="logo-hucre"><span class="rozet-kucuk" aria-hidden="true">K</span></td><td class="mono">00017</td><td>Türkiye Kalkınma ve Yatırım Bankası</td></tr>
+          <tr data-ara="00029 birleşik fon bankası"><td class="logo-hucre"><span class="rozet-kucuk" aria-hidden="true">BF</span></td><td class="mono">00029</td><td>Birleşik Fon Bankası</td></tr>
+          <tr data-ara="00032 teb (türk ekonomi bankası)"><td class="logo-hucre"><img src="logolar/00032.png" alt="TEB (Türk Ekonomi Bankası) logosu" width="44" height="44" loading="lazy"></td><td class="mono">00032</td><td>TEB (Türk Ekonomi Bankası)</td></tr>
+          <tr data-ara="00046 akbank"><td class="logo-hucre"><img src="logolar/00046.png" alt="Akbank logosu" width="44" height="44" loading="lazy"></td><td class="mono">00046</td><td>Akbank</td></tr>
+          <tr data-ara="00059 şekerbank"><td class="logo-hucre"><img src="logolar/00059.png" alt="Şekerbank logosu" width="44" height="44" loading="lazy"></td><td class="mono">00059</td><td>Şekerbank</td></tr>
+          <tr data-ara="00060 türk ticaret bankası"><td class="logo-hucre"><span class="rozet-kucuk" aria-hidden="true">TT</span></td><td class="mono">00060</td><td>Türk Ticaret Bankası</td></tr>
+          <tr data-ara="00062 garanti bbva"><td class="logo-hucre"><img src="logolar/00062.png" alt="Garanti BBVA logosu" width="44" height="44" loading="lazy"></td><td class="mono">00062</td><td>Garanti BBVA</td></tr>
+          <tr data-ara="00064 türkiye iş bankası"><td class="logo-hucre"><img src="logolar/00064.png" alt="Türkiye İş Bankası logosu" width="44" height="44" loading="lazy"></td><td class="mono">00064</td><td>Türkiye İş Bankası</td></tr>
+          <tr data-ara="00067 yapı kredi"><td class="logo-hucre"><img src="logolar/00067.png" alt="Yapı Kredi logosu" width="44" height="44" loading="lazy"></td><td class="mono">00067</td><td>Yapı Kredi</td></tr>
+          <tr data-ara="00091 arap türk bankası"><td class="logo-hucre"><span class="rozet-kucuk" aria-hidden="true">AT</span></td><td class="mono">00091</td><td>Arap Türk Bankası</td></tr>
+          <tr data-ara="00092 citibank"><td class="logo-hucre"><img src="logolar/00092.png" alt="Citibank logosu" width="44" height="44" loading="lazy"></td><td class="mono">00092</td><td>Citibank</td></tr>
+          <tr data-ara="00096 freedom bank"><td class="logo-hucre"><span class="rozet-kucuk" aria-hidden="true">F</span></td><td class="mono">00096</td><td>Freedom Bank</td></tr>
+          <tr data-ara="00098 jpmorgan chase bank"><td class="logo-hucre"><span class="rozet-kucuk" aria-hidden="true">JC</span></td><td class="mono">00098</td><td>JPMorgan Chase Bank</td></tr>
+          <tr data-ara="00099 ıng bank"><td class="logo-hucre"><img src="logolar/00099.png" alt="ING Bank logosu" width="44" height="44" loading="lazy"></td><td class="mono">00099</td><td>ING Bank</td></tr>
+          <tr data-ara="00103 fibabanka"><td class="logo-hucre"><img src="logolar/00103.png" alt="Fibabanka logosu" width="44" height="44" loading="lazy"></td><td class="mono">00103</td><td>Fibabanka</td></tr>
+          <tr data-ara="00108 turkland bank"><td class="logo-hucre"><span class="rozet-kucuk" aria-hidden="true">T</span></td><td class="mono">00108</td><td>Turkland Bank</td></tr>
+          <tr data-ara="00109 ıcbc turkey bank"><td class="logo-hucre"><img src="logolar/00109.png" alt="ICBC Turkey Bank logosu" width="44" height="44" loading="lazy"></td><td class="mono">00109</td><td>ICBC Turkey Bank</td></tr>
+          <tr data-ara="00111 qnb finansbank"><td class="logo-hucre"><img src="logolar/00111.png" alt="QNB Finansbank logosu" width="44" height="44" loading="lazy"></td><td class="mono">00111</td><td>QNB Finansbank</td></tr>
+          <tr data-ara="00115 deutsche bank"><td class="logo-hucre"><img src="logolar/00115.png" alt="Deutsche Bank logosu" width="44" height="44" loading="lazy"></td><td class="mono">00115</td><td>Deutsche Bank</td></tr>
+          <tr data-ara="00116 pasha yatırım bank"><td class="logo-hucre"><span class="rozet-kucuk" aria-hidden="true">P</span></td><td class="mono">00116</td><td>Pasha Yatırım Bank</td></tr>
+          <tr data-ara="00121 standard chartered yatırım bankası"><td class="logo-hucre"><span class="rozet-kucuk" aria-hidden="true">SC</span></td><td class="mono">00121</td><td>Standard Chartered Yatırım Bankası</td></tr>
+          <tr data-ara="00122 société générale"><td class="logo-hucre"><span class="rozet-kucuk" aria-hidden="true">SG</span></td><td class="mono">00122</td><td>Société Générale</td></tr>
+          <tr data-ara="00123 hsbc bank"><td class="logo-hucre"><img src="logolar/00123.png" alt="HSBC Bank logosu" width="44" height="44" loading="lazy"></td><td class="mono">00123</td><td>HSBC Bank</td></tr>
+          <tr data-ara="00124 alternatifbank"><td class="logo-hucre"><img src="logolar/00124.png" alt="Alternatifbank logosu" width="44" height="44" loading="lazy"></td><td class="mono">00124</td><td>Alternatifbank</td></tr>
+          <tr data-ara="00125 burgan bank"><td class="logo-hucre"><img src="logolar/00125.png" alt="Burgan Bank logosu" width="44" height="44" loading="lazy"></td><td class="mono">00125</td><td>Burgan Bank</td></tr>
+          <tr data-ara="00129 bank of america yatırım bank"><td class="logo-hucre"><span class="rozet-kucuk" aria-hidden="true">OA</span></td><td class="mono">00129</td><td>Bank of America Yatırım Bank</td></tr>
+          <tr data-ara="00132 takasbank (istanbul takas ve saklama bankası)"><td class="logo-hucre"><span class="rozet-kucuk" aria-hidden="true">T</span></td><td class="mono">00132</td><td>Takasbank (İstanbul Takas ve Saklama Bankası)</td></tr>
+          <tr data-ara="00134 denizbank"><td class="logo-hucre"><img src="logolar/00134.png" alt="DenizBank logosu" width="44" height="44" loading="lazy"></td><td class="mono">00134</td><td>DenizBank</td></tr>
+          <tr data-ara="00135 anadolubank"><td class="logo-hucre"><img src="logolar/00135.png" alt="Anadolubank logosu" width="44" height="44" loading="lazy"></td><td class="mono">00135</td><td>Anadolubank</td></tr>
+          <tr data-ara="00137 hepsi bank"><td class="logo-hucre"><span class="rozet-kucuk" aria-hidden="true">H</span></td><td class="mono">00137</td><td>Hepsi Bank</td></tr>
+          <tr data-ara="00138 diler yatırım bankası"><td class="logo-hucre"><span class="rozet-kucuk" aria-hidden="true">D</span></td><td class="mono">00138</td><td>Diler Yatırım Bankası</td></tr>
+          <tr data-ara="00139 gsd yatırım bankası"><td class="logo-hucre"><span class="rozet-kucuk" aria-hidden="true">G</span></td><td class="mono">00139</td><td>GSD Yatırım Bankası</td></tr>
+          <tr data-ara="00141 nurol yatırım bankası"><td class="logo-hucre"><span class="rozet-kucuk" aria-hidden="true">N</span></td><td class="mono">00141</td><td>Nurol Yatırım Bankası</td></tr>
+          <tr data-ara="00142 bankpozitif"><td class="logo-hucre"><span class="rozet-kucuk" aria-hidden="true">B</span></td><td class="mono">00142</td><td>BankPozitif</td></tr>
+          <tr data-ara="00143 aktif bank"><td class="logo-hucre"><span class="rozet-kucuk" aria-hidden="true">A</span></td><td class="mono">00143</td><td>Aktif Bank</td></tr>
+          <tr data-ara="00146 odeabank"><td class="logo-hucre"><img src="logolar/00146.png" alt="Odeabank logosu" width="44" height="44" loading="lazy"></td><td class="mono">00146</td><td>Odeabank</td></tr>
+          <tr data-ara="00147 mufg bank turkey"><td class="logo-hucre"><span class="rozet-kucuk" aria-hidden="true">MT</span></td><td class="mono">00147</td><td>MUFG Bank Turkey</td></tr>
+          <tr data-ara="00148 ıntesa sanpaolo"><td class="logo-hucre"><span class="rozet-kucuk" aria-hidden="true">IS</span></td><td class="mono">00148</td><td>Intesa Sanpaolo</td></tr>
+          <tr data-ara="00149 bank of china turkey"><td class="logo-hucre"><span class="rozet-kucuk" aria-hidden="true">OC</span></td><td class="mono">00149</td><td>Bank of China Turkey</td></tr>
+          <tr data-ara="00151 d yatırım bankası"><td class="logo-hucre"><span class="rozet-kucuk" aria-hidden="true">D</span></td><td class="mono">00151</td><td>D Yatırım Bankası</td></tr>
+          <tr data-ara="00152 destek yatırım bankası"><td class="logo-hucre"><span class="rozet-kucuk" aria-hidden="true">D</span></td><td class="mono">00152</td><td>Destek Yatırım Bankası</td></tr>
+          <tr data-ara="00153 misyon yatırım bankası"><td class="logo-hucre"><span class="rozet-kucuk" aria-hidden="true">M</span></td><td class="mono">00153</td><td>Misyon Yatırım Bankası</td></tr>
+          <tr data-ara="00154 tera yatırım bankası"><td class="logo-hucre"><span class="rozet-kucuk" aria-hidden="true">T</span></td><td class="mono">00154</td><td>Tera Yatırım Bankası</td></tr>
+          <tr data-ara="00155 q yatırım bankası"><td class="logo-hucre"><span class="rozet-kucuk" aria-hidden="true">Q</span></td><td class="mono">00155</td><td>Q Yatırım Bankası</td></tr>
+          <tr data-ara="00156 hedef yatırım bankası"><td class="logo-hucre"><span class="rozet-kucuk" aria-hidden="true">H</span></td><td class="mono">00156</td><td>Hedef Yatırım Bankası</td></tr>
+          <tr data-ara="00157 enpara bank"><td class="logo-hucre"><img src="logolar/00157.png" alt="Enpara Bank logosu" width="44" height="44" loading="lazy"></td><td class="mono">00157</td><td>Enpara Bank</td></tr>
+          <tr data-ara="00158 colendi bank"><td class="logo-hucre"><span class="rozet-kucuk" aria-hidden="true">C</span></td><td class="mono">00158</td><td>Colendi Bank</td></tr>
+          <tr data-ara="00159 fups bank"><td class="logo-hucre"><span class="rozet-kucuk" aria-hidden="true">F</span></td><td class="mono">00159</td><td>Fups Bank</td></tr>
+          <tr data-ara="00160 ziraat dinamik banka"><td class="logo-hucre"><span class="rozet-kucuk" aria-hidden="true">ZD</span></td><td class="mono">00160</td><td>Ziraat Dinamik Banka</td></tr>
+          <tr data-ara="00161 aytemiz yatırım bankası"><td class="logo-hucre"><span class="rozet-kucuk" aria-hidden="true">A</span></td><td class="mono">00161</td><td>Aytemiz Yatırım Bankası</td></tr>
+          <tr data-ara="00203 albaraka türk katılım bankası"><td class="logo-hucre"><img src="logolar/00203.png" alt="Albaraka Türk Katılım Bankası logosu" width="44" height="44" loading="lazy"></td><td class="mono">00203</td><td>Albaraka Türk Katılım Bankası</td></tr>
+          <tr data-ara="00205 kuveyt türk katılım bankası"><td class="logo-hucre"><img src="logolar/00205.png" alt="Kuveyt Türk Katılım Bankası logosu" width="44" height="44" loading="lazy"></td><td class="mono">00205</td><td>Kuveyt Türk Katılım Bankası</td></tr>
+          <tr data-ara="00206 türkiye finans katılım bankası"><td class="logo-hucre"><img src="logolar/00206.png" alt="Türkiye Finans Katılım Bankası logosu" width="44" height="44" loading="lazy"></td><td class="mono">00206</td><td>Türkiye Finans Katılım Bankası</td></tr>
+          <tr data-ara="00209 ziraat katılım bankası"><td class="logo-hucre"><img src="logolar/00209.png" alt="Ziraat Katılım Bankası logosu" width="44" height="44" loading="lazy"></td><td class="mono">00209</td><td>Ziraat Katılım Bankası</td></tr>
+          <tr data-ara="00210 vakıf katılım bankası"><td class="logo-hucre"><img src="logolar/00210.png" alt="Vakıf Katılım Bankası logosu" width="44" height="44" loading="lazy"></td><td class="mono">00210</td><td>Vakıf Katılım Bankası</td></tr>
+          <tr data-ara="00211 emlak katılım bankası"><td class="logo-hucre"><img src="logolar/00211.png" alt="Emlak Katılım Bankası logosu" width="44" height="44" loading="lazy"></td><td class="mono">00211</td><td>Emlak Katılım Bankası</td></tr>
+          <tr data-ara="00212 hayat finans katılım bankası"><td class="logo-hucre"><span class="rozet-kucuk" aria-hidden="true">HF</span></td><td class="mono">00212</td><td>Hayat Finans Katılım Bankası</td></tr>
+          <tr data-ara="00213 t.o.m. katılım bankası"><td class="logo-hucre"><span class="rozet-kucuk" aria-hidden="true">T</span></td><td class="mono">00213</td><td>T.O.M. Katılım Bankası</td></tr>
+          <tr data-ara="00214 dünya katılım bankası"><td class="logo-hucre"><span class="rozet-kucuk" aria-hidden="true">D</span></td><td class="mono">00214</td><td>Dünya Katılım Bankası</td></tr>
+          <tr data-ara="00215 adil katılım bankası"><td class="logo-hucre"><span class="rozet-kucuk" aria-hidden="true">A</span></td><td class="mono">00215</td><td>Adil Katılım Bankası</td></tr>
+          <tr data-ara="00216 iktisat katılım bankası"><td class="logo-hucre"><span class="rozet-kucuk" aria-hidden="true">İ</span></td><td class="mono">00216</td><td>İktisat Katılım Bankası</td></tr>
+          <tr data-ara="00806 merkezi kayıt kuruluşu (mkk)"><td class="logo-hucre"><span class="rozet-kucuk" aria-hidden="true">MK</span></td><td class="mono">00806</td><td>Merkezi Kayıt Kuruluşu (MKK)</td></tr>
+          <tr data-ara="00807 ptt"><td class="logo-hucre"><span class="rozet-kucuk" aria-hidden="true">P</span></td><td class="mono">00807</td><td>PTT</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h2>Sık sorulan sorular</h2>
+      <h3 class="soru">IBAN'dan banka kodu nasıl bulunur?</h3>
+      <p>Türkiye IBAN'ı 26 karakterdir. İlk 2 karakter ülke kodu (TR), sonraki 2 karakter kontrol numarasıdır. Banka kodu IBAN'ın 5. ile 9. hanelerindeki 5 haneli sayıdır. Örneğin TR71 0006 7012 3456 7890 1234 56 numarasında banka kodu 00067'dir.</p>
+      <h3 class="soru">Banka kodu ile EFT kodu aynı mıdır?</h3>
+      <p>Hayır. IBAN içindeki 5 haneli banka kodu, TCMB'nin ödeme sistemleri katılımcı listesindeki koddur. EFT, SWIFT ve şube kodları farklı numaralardır.</p>
+      <h3 class="soru">Bu liste ne kadar günceldir?</h3>
+      <p>Liste TCMB'nin ödeme sistemleri katılımcıları 2026 listesine dayanır (18.09.2026 güncellemesi).</p>
+
+      <p class="ust-bosluk">Bu site hiçbir banka veya kamu kurumuyla bağlantılı değildir. Banka adları ve logoları sahiplerine aittir ve yalnızca bankayı tanıtmak için gösterilir. Liste bilgilendirme amaçlıdır.</p>
+    </article>
+  </main>
+
+  <footer>
+    <nav class="alt-baglantilar" aria-label="Site bağlantıları">
+      <a href="./">Ana sayfa</a>
+      <span aria-hidden="true">·</span>
+      <a href="kvkk.html">KVKK Aydınlatma Metni</a>
+    </nav>
+    <p>&copy; 2026 IBAN Doğrula</p>
+  </footer>
+
+  <script src="banka-kodlari.js?v=20261122c"></script>
+  <!-- Cloudflare Web Analytics: çerezsiz ziyaretçi sayacı -->
+  <script type="module" src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "cf7c5ec5392f4ba684692a2b5b3f1f00"}'></script>
+</body>
+</html>
