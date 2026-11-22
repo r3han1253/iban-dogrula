@@ -29,3 +29,17 @@ Derleme, paket yöneticisi, lint ya da test yoktur. Sadece düz HTML/CSS/JS.
 - **Alan adı:** Canonical, `og:url`, `og:image` ve [sitemap.xml](sitemap.xml) şu an `r3han1253.github.io/TRIBAN-KONTROL/` adresini kullanır. `app.js` paylaşım metnindeki site adresini canonical etiketinden okur. Alan adı (`ibandogrula.com`) bağlanırsa bu adreslerin hepsi ve bir `CNAME` dosyası güncellenmelidir.
 - **Toplu doğrulama:** Giriş satır başına en fazla 26 IBAN karakteriyle sınırlıdır (`satiriKisalt`), toplam en çok 10.000 IBAN işlenir (`TOPLU_SINIR`). IBAN ayıklama `satirdanIbanlar()` ve `IBAN_DESENI` ile yapılır; fazla haneli IBAN'ın yanlışlıkla geçerli görünmemesi için desen bilinçli olarak sıkıdır.
 - **CSV:** Excel'in Türkçe ayarlarında açılması için `;` ayracı ve UTF-8 BOM kullanılır.
+
+## Agent skills
+
+### Issue tracker
+
+Issue'lar GitHub Issues'ta tutulur (`gh` CLI). Bkz. `docs/agents/issue-tracker.md`.
+
+### Triage labels
+
+Varsayılan beş etiket kullanılır: `needs-triage`, `needs-info`, `ready-for-agent`, `ready-for-human`, `wontfix`. Bkz. `docs/agents/triage-labels.md`.
+
+### Domain docs
+
+Tek bağlamlı düzen: kökte `GLOSSARY.md` ve `docs/adr/`. Bkz. `docs/agents/domain.md`.
