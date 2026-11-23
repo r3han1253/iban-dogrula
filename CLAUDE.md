@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Proje
 
-"IBAN Doğrula": Türkiye IBAN numaralarını doğrulayan ve bankasını gösteren, tamamen istemci tarafında çalışan statik site. Arayüz, kod yorumları, commit mesajları ve değişken adları Türkçedir; yeni kod ve commit mesajları da Türkçe yazılır. GitHub Pages'te (`r3han1253/TRIBAN-KONTROL`, `main` dalı) yayınlanır.
+"IBAN Doğrula": Türkiye IBAN numaralarını doğrulayan ve bankasını gösteren, tamamen istemci tarafında çalışan statik site. Arayüz, kod yorumları, commit mesajları ve değişken adları Türkçedir; yeni kod ve commit mesajları da Türkçe yazılır. GitHub Pages'te (`r3han1253/iban-dogrula`, `main` dalı) yayınlanır.
 
 ## Komutlar
 
@@ -28,7 +28,7 @@ Derleme, paket yöneticisi, lint ya da test yoktur. Sadece düz HTML/CSS/JS.
 
 - **Gizlilik sözü:** Site "IBAN hiçbir yere gönderilmez" der. Girilen IBAN'ı ağa gönderen, kaydeden ya da üçüncü taraf betiğe veren hiçbir değişiklik yapmayın. [index.html](index.html) içindeki Content-Security-Policy (`default-src 'self'`, yalnızca Cloudflare izin listesinde) bunu güvence altına alır; yeni bir dış kaynak eklemek CSP'yi ve [kvkk.html](kvkk.html) metnini de güncellemeyi gerektirir. Satır içi script ve stil CSP nedeniyle çalışmaz, ayrı dosya kullanın.
 - **Önbellek sürümü:** `style.css?v=…`, `app.js?v=…` ve `tema.js?v=…` sorgu parametreleri elle artırılır (`20261120d` biçimi: tarih + harf). Bu dosyalardan birini değiştirince [index.html](index.html) içindeki sürümü yükseltin. [kvkk.html](kvkk.html) kendi `style.css` sürümünü ayrıca taşır.
-- **Alan adı:** Canonical, `og:url`, `og:image` ve [sitemap.xml](sitemap.xml) şu an `r3han1253.github.io/TRIBAN-KONTROL/` adresini kullanır. `app.js` paylaşım metnindeki site adresini canonical etiketinden okur. Alan adı (`ibandogrula.com`) bağlanırsa bu adreslerin hepsi ve bir `CNAME` dosyası güncellenmelidir.
+- **Alan adı:** Canonical, `og:url`, `og:image` ve [sitemap.xml](sitemap.xml) şu an `r3han1253.github.io/iban-dogrula/` adresini kullanır. `app.js` paylaşım metnindeki site adresini canonical etiketinden okur. Alan adı (`ibandogrula.com`) bağlanırsa bu adreslerin hepsi ve bir `CNAME` dosyası güncellenmelidir.
 - **Toplu doğrulama:** Giriş satır başına en fazla 26 IBAN karakteriyle sınırlıdır (`satiriKisalt`), toplam en çok 10.000 IBAN işlenir (`TOPLU_SINIR`). IBAN ayıklama `satirdanIbanlar()` ve `IBAN_DESENI` ile yapılır; fazla haneli IBAN'ın yanlışlıkla geçerli görünmemesi için desen bilinçli olarak sıkıdır.
 - **Dosyadan okuma:** .xlsx dosyası kütüphanesiz, `DecompressionStream` ile `app.js` içinde açılır (dış betik eklemeyin, CSP izin vermez). Dosya yalnızca tarayıcıda okunur; 20 MB dosya ve 100 MB açılmış boyut sınırı vardır. Eski .xls okunmaz, kullanıcıya .xlsx/.csv önerilir.
 - **Banka listesi değişince:** `BANKALAR`a kod eklediğinizde ya da `logolar/`a logo koyduğunuzda `node araclar/banka-sayfasi-uret.cjs` çalıştırın; üretilen `banka-kodlari.html` ve `style.css` sürümü betikteki `SURUM` ile eşleşmelidir (betik, `style.css` sürümünü yükselttiğinizde elle güncellenir).

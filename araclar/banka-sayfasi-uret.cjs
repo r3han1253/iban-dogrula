@@ -13,7 +13,7 @@ const basHarflerMetni = uygulama.slice(uygulama.indexOf("function basHarfler"), 
 const { BANKALAR, basHarfler } = new Function(bankalarMetni + "\n" + basHarflerMetni + "\nreturn { BANKALAR, basHarfler };")();
 
 const kacis = s => s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
-const SITE = "https://r3han1253.github.io/TRIBAN-KONTROL/";
+const SITE = "https://r3han1253.github.io/iban-dogrula/";
 const SURUM = "20261122c";
 
 const kodlar = Object.keys(BANKALAR).sort();
